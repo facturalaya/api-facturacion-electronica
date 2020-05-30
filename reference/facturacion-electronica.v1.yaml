@@ -129,7 +129,7 @@ paths:
             type: object
             properties:
               nombres:
-                  type: string
+                type: string
               ap_paterno:
                 type: string
               ap_materno:
@@ -249,7 +249,6 @@ paths:
                 type: string
               mensaje:
                 type: string
-
   /facturalaya/guia_remision:
     post:
       tags:
@@ -259,14 +258,14 @@ paths:
       operationId: guiaRemision
       produces:
         - application/json
-      consumes: 
+      consumes:
         - application/json
-      parameters: 
+      parameters:
         - in: body
           name: data
           required: true
           schema:
-            $ref: '#/definitions/guia_remision'      
+            $ref: '#/definitions/guia_remision'
       responses:
         '200':
           description: Ok
@@ -281,11 +280,10 @@ paths:
                 type: string
               mensaje:
                 type: string
-
   /facturalaya/enviar_email_documento:
     post:
-      tags: 
-          - endpoints
+      tags:
+        - endpoints
       summary: Enviar comprobante por email
       description: Enviar comprobante por email
       operationId: enviarEmail
@@ -298,8 +296,7 @@ paths:
           name: data
           required: true
           schema:
-            $ref: '#/definitions/email'      
-          
+            $ref: '#/definitions/email'
       responses:
         '200':
           description: Ok
@@ -314,8 +311,6 @@ paths:
                 type: string
               mensaje:
                 type: string
-
-                                     
 definitions:
   guia_remision:
     type: object
@@ -325,13 +320,13 @@ definitions:
       ruc_proveedor:
         type: string
       secret_data:
-        $ref: '#/definitions/secret_data'      
+        $ref: '#/definitions/secret_data'
       emisor:
-        $ref: '#/definitions/emisor' 
+        $ref: '#/definitions/emisor'
       cliente:
-        $ref: '#/definitions/cliente'       
+        $ref: '#/definitions/cliente'
       detalle:
-        $ref: '#/definitions/detalle_guia'     
+        $ref: '#/definitions/detalle_guia'
       id_motivotraslado:
         type: string
       motivo_traslado:
@@ -341,7 +336,7 @@ definitions:
         format: float
       numero_paquetes:
         type: number
-        format: integer      
+        format: integer
       id_codigopuerto:
         type: string
       numero_contenedor:
@@ -353,7 +348,9 @@ definitions:
         format: date
       id_tipo_documento_transporte:
         type: string
-        enum: ["1","6"]
+        enum:
+          - '1'
+          - '6'
       nro_documento_transporte:
         type: string
       razon_social_transporte:
@@ -369,7 +366,7 @@ definitions:
       nota:
         type: string
       docs_referencia:
-        $ref: '#/definitions/docs_referencia'     
+        $ref: '#/definitions/docs_referencia'
       serie_comprobante:
         type: string
       numero_comprobante:
@@ -389,24 +386,22 @@ definitions:
       - id_motivotraslado
       - motivo_traslado
       - peso
-      - numero_paquetes      
+      - numero_paquetes
       - id_modalidadtraslado
       - fecha_traslado
       - id_tipo_documento_transporte
       - nro_documento_transporte
       - razon_social_transporte
-      - id_ubigeo_destino
       - dir_destino
       - id_ubigeo_partida
+      - dir_partida
       - nota
       - serie_comprobante
       - numero_comprobante
       - fecha_comprobante
       - cod_tipo_documento
-
-
-        
-      
+    x-tags:
+      - Modelos
   detalle_guia:
     type: array
     items:
@@ -432,14 +427,14 @@ definitions:
         - CANTIDAD_DET
         - CODIGO_PRODUCTO
         - DESCRIPCION_DET
-
-
-
+        - PESO_DET
+    x-tags:
+      - Modelos
   email:
     type: object
     properties:
       token_cliente:
-        type: string      
+        type: string
       ruc_proveedor:
         type: string
       emisor:
@@ -468,17 +463,19 @@ definitions:
         format: float
       documento_moneda:
         type: string
-        enum: [USD,PEN]
+        enum:
+          - USD
+          - PEN
       documento_pdf_a4:
         type: string
       documento_pdf_ticket:
         type: string
-      documento_xml: 
+      documento_xml:
         type: string
       accion:
         type: string
     required:
-      - token_cliente       
+      - token_cliente
       - ruc_proveedor
       - asunto
       - emisor_email
@@ -491,15 +488,12 @@ definitions:
       - documento_fecha
       - documento_total
       - documento_moneda
-      - documento_pdf_a4 
+      - documento_pdf_a4
       - documento_pdf_ticket
       - documento_xml
       - accion
-
-
-      
-      
-
+    x-tags:
+      - Modelos
   cliente:
     type: object
     properties:
@@ -533,6 +527,8 @@ definitions:
       - cliente_numerodocumento
       - cliente_nombre
       - cliente_pais
+    x-tags:
+      - Modelos
   docs_referencia:
     type: array
     items:
@@ -548,6 +544,8 @@ definitions:
         - id_tipodoc_electronico
         - serie_comprobante
         - numero_comprobante
+    x-tags:
+      - Modelos
   detalle:
     type: array
     items:
@@ -631,6 +629,8 @@ definitions:
         - PORCENTAJE_DESCUENTO
         - MONTO_DESCUENTO
         - CODIGO_DESCUENTO
+    x-tags:
+      - Modelos
   data:
     type: object
     properties:
@@ -759,6 +759,8 @@ definitions:
       - cod_tipo_documento
       - serie_comprobante
       - numero_comprobante
+    x-tags:
+      - Modelos
   data_pse:
     required:
       - token_cliente
@@ -781,6 +783,8 @@ definitions:
         type: string
       password_sol_cliente:
         type: string
+    x-tags:
+      - Modelos
   data_cpe:
     required:
       - token_cliente
@@ -802,6 +806,8 @@ definitions:
         $ref: '#/definitions/cabecera_cpe'
       detalle:
         $ref: '#/definitions/detalle_cpe'
+    x-tags:
+      - Modelos
   cabecera_cpe:
     required:
       - codigo
@@ -826,6 +832,8 @@ definitions:
       fecha_baja:
         type: string
         format: date
+    x-tags:
+      - Modelos
   detalle_cpe:
     type: array
     items:
@@ -850,6 +858,8 @@ definitions:
         - SERIE
         - NUMERO
         - MOTIVO
+    x-tags:
+      - Modelos
   emisor:
     properties:
       ruc:
@@ -899,6 +909,8 @@ definitions:
       - direccion_provincia
       - direccion_distrito
       - direccion_codigopais
+    x-tags:
+      - Modelos
   secret_data:
     properties:
       tipo_certificado:
@@ -914,6 +926,8 @@ definitions:
     required:
       - tipo_certificado
       - tipo_proceso
+    x-tags:
+      - Modelos
   ticket:
     properties:
       token_cliente:
