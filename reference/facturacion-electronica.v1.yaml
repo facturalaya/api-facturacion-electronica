@@ -311,7 +311,342 @@ paths:
                 type: string
               mensaje:
                 type: string
+  /facturalaya/nota_credito:
+    post:
+      tags:
+        - endpoints
+      summary: Generar una nota de crédito
+      description: Generar una nota de crédito
+      operationId: notaCredito
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          required: true
+          schema:
+            $ref: '#/definitions/nota_credito'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
+  /facturalaya/nota_debito:
+    post:
+      tags:
+        - endpoints
+      summary: Generar una nota de débito
+      description: Generar una nota de débito
+      operationId: notaDebito
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          required: true
+          schema:
+            $ref: '#/definitions/nota_debito'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
+  
 definitions:
+  nota_debito:
+    type: object
+    properties:
+      token_cliente:
+        type: string
+      ruc_proveedor:
+        type: string
+      secret_data:
+        $ref: '#/definitions/secret_data'
+      emisor:
+        $ref: '#/definitions/emisor'
+      cliente:
+        $ref: '#/definitions/cliente'
+      detalle:
+        $ref: '#/definitions/detalle'
+      tipo_operacion:
+        type: string
+      total_gravadas:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_inafecta:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_exoneradas:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_gratuitas:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_exportacion:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_isc:
+        type: number
+        format: float
+        description: Por defecto es 0
+      total_icbper:
+        type: number
+        format: float
+        description: Por defecto es 0
+      total_otr_imp:
+        type: number
+        format: float
+        description: Por defecto es 0
+      total_descuento:
+        type: number
+        format: float
+      impuesto_icbper:
+        type: number
+        format: float
+        description: 'El impuesto del icbper de acuerdo al año (2019 -> S/. 0.10, 2020 -> S/. 0.2, 2021 -> S/. 0.3)'
+      porcentaje_igv:
+        type: number
+        format: float
+        description: Porcentaje del IGV
+      total_igv:
+        type: number
+        format: float
+        description: El monto total de IGV
+      sub_total:
+        type: number
+        format: float
+        description: Total sin IGV
+      total:
+        type: number
+        format: float
+        description: El total del documento
+      total_letras:
+        type: string
+      docs_referencia:
+        $ref: '#/definitions/docs_referencia'
+      nro_otr_comprobante:
+        type: string
+      transporte_nro_placa:
+        type: string
+      cod_moneda:
+        type: string
+        example: PEN
+      fecha_comprobante:
+        type: string
+        format: date
+      fecha_vto_comprobante:
+        type: string
+        format: date
+      cod_tipo_documento:
+        type: string
+      serie_comprobante:
+        type: string
+      numero_comprobante:
+        type: number
+        format: integer
+      tipo_comprobante_modifica:
+        type: string
+      nro_documento_modifica:
+        type: string
+      cod_tipo_motivo:
+        type: string
+      descripcion_motivo:
+        type: string
+    required:
+      - token_cliente
+      - ruc_proveedor
+      - secret_data
+      - emisor
+      - cliente
+      - detalle
+      - tipo_operacion
+      - total_gravadas
+      - total_inafecta
+      - total_exoneradas
+      - total_gratuitas
+      - total_exportacion
+      - total_isc
+      - total_icbper
+      - total_otr_imp
+      - total_descuento
+      - impuesto_icbper
+      - porcentaje_igv
+      - total_igv
+      - sub_total
+      - total
+      - cod_moneda
+      - fecha_comprobante
+      - fecha_vto_comprobante
+      - cod_tipo_documento
+      - serie_comprobante
+      - numero_comprobante
+      - tipo_comprobante_modifica
+      - nro_documento_modifica
+      - cod_tipo_motivo
+      - descripcion_motivo
+  nota_credito:
+    type: object
+    properties:
+      token_cliente:
+        type: string
+      ruc_proveedor:
+        type: string
+      secret_data:
+        $ref: '#/definitions/secret_data'
+      emisor:
+        $ref: '#/definitions/emisor'
+      cliente:
+        $ref: '#/definitions/cliente'
+      detalle:
+        $ref: '#/definitions/detalle'
+      tipo_operacion:
+        type: string
+      total_gravadas:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_inafecta:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_exoneradas:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_gratuitas:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_exportacion:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_isc:
+        type: number
+        format: float
+        description: Por defecto es 0
+      total_icbper:
+        type: number
+        format: float
+        description: Por defecto es 0
+      total_otr_imp:
+        type: number
+        format: float
+        description: Por defecto es 0
+      total_descuento:
+        type: number
+        format: float
+      impuesto_icbper:
+        type: number
+        format: float
+        description: 'El impuesto del icbper de acuerdo al año (2019 -> S/. 0.10, 2020 -> S/. 0.2, 2021 -> S/. 0.3)'
+      porcentaje_igv:
+        type: number
+        format: float
+        description: Porcentaje del IGV
+      total_igv:
+        type: number
+        format: float
+        description: El monto total de IGV
+      sub_total:
+        type: number
+        format: float
+        description: Total sin IGV
+      total:
+        type: number
+        format: float
+        description: El total del documento
+      total_letras:
+        type: string
+      docs_referencia:
+        $ref: '#/definitions/docs_referencia'
+      nro_otr_comprobante:
+        type: string
+      transporte_nro_placa:
+        type: string
+      cod_moneda:
+        type: string
+        example: PEN
+      fecha_comprobante:
+        type: string
+        format: date
+      fecha_vto_comprobante:
+        type: string
+        format: date
+      cod_tipo_documento:
+        type: string
+      serie_comprobante:
+        type: string
+      numero_comprobante:
+        type: number
+        format: integer
+      tipo_comprobante_modifica:
+        type: string
+      nro_documento_modifica:
+        type: string
+      cod_tipo_motivo:
+        type: string
+      descripcion_motivo:
+        type: string
+    required:
+      - token_cliente
+      - ruc_proveedor
+      - secret_data
+      - emisor
+      - cliente
+      - detalle
+      - tipo_operacion
+      - total_gravadas
+      - total_inafecta
+      - total_exoneradas
+      - total_gratuitas
+      - total_exportacion
+      - total_isc
+      - total_icbper
+      - total_otr_imp
+      - total_descuento
+      - impuesto_icbper
+      - porcentaje_igv
+      - total_igv
+      - sub_total
+      - total
+      - cod_moneda
+      - fecha_comprobante
+      - fecha_vto_comprobante
+      - cod_tipo_documento
+      - serie_comprobante
+      - numero_comprobante
+      - tipo_comprobante_modifica
+      - nro_documento_modifica
+      - cod_tipo_motivo
+      - descripcion_motivo
   guia_remision:
     type: object
     properties:
@@ -951,6 +1286,9 @@ definitions:
       serie:
         type: string
         description: Fecha con el formato Ymd
+    x-tags:
+      - Modelos
+    description: ''
 schemes:
   - https
 host: facturalahoy.com
