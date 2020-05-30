@@ -373,8 +373,297 @@ paths:
                 type: string
               mensaje:
                 type: string
-  
+  /facturalaya/recuperar_cpe:
+    post:
+      tags:
+        - endpoints
+      summary: Recuperar CPE
+      description: Recuperar CPE
+      operationId: recuperarCPE
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          required: true
+          schema:
+            $ref: '#/definitions/cpe_recover'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
+  /facturalaya/recuperar_cdr:
+    post:
+      tags:
+        - endpoints
+      summary: Recuperar CDR
+      description: Recuperar CDR
+      operationId: recuperarCDR
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          required: true
+          schema:
+            $ref: '#/definitions/cdr_recover'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
+  /facturalaya/resumen_boletas:
+    post:
+      tags:
+        - endpoints
+      summary: Resumen boletas NDC
+      description: Resumen boletas NDC
+      operationId: resumenBoletasNDC
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          required: true
+          schema:
+            $ref: '#/definitions/resumen_boleta_ndc'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
 definitions:
+  detalle_boleta_ndc:
+    type: array
+    x-tags:
+      - Modelos
+    items:
+      type: object
+      properties:
+        ITEM_DET:
+          type: number
+          format: integer
+        TIPO_COMPROBANTE:
+          type: string
+        NRO_COMPROBANTE:
+          type: string
+        NRO_DOCUMENTO:
+          type: string
+        TIPO_DOCUMENTO:
+          type: string
+        NRO_COMPROBANTE_REF:
+          type: string
+        TIPO_COMPROBANTE_REF:
+          type: string
+        STATUS:
+          type: number
+          format: integer
+          enum:
+            - 1
+            - 2
+            - 3
+          description: '1 -> Adicionar, 2 -> Modificar, 3 -> Anulado'
+        COD_MONEDA:
+          type: string
+        TOTAL:
+          type: number
+          format: double
+        GRAVADA:
+          type: number
+          format: double
+        EXONERADO:
+          type: number
+          format: double
+        INAFECTO:
+          type: number
+          format: double
+        EXPORTACION:
+          type: number
+          format: double
+        ICBPER:
+          type: number
+          format: double
+        GRATUITAS:
+          type: number
+          format: double
+        IGV:
+          type: number
+          format: double
+        MONTO_CARGO_X_ASIG:
+          type: string
+        CARGO_X_ASIGNACION:
+          type: string
+        ISC:
+          type: number
+          format: float
+        OTROS:
+          type: number
+          format: float
+      required:
+        - ITEM_DET
+        - TIPO_COMPROBANTE
+        - NRO_COMPROBANTE
+        - NRO_DOCUMENTO
+        - TIPO_DOCUMENTO
+        - NRO_COMPROBANTE_REF
+        - TIPO_COMPROBANTE_REF
+        - STATUS
+        - COD_MONEDA
+        - TOTAL
+        - GRAVADA
+        - EXONERADO
+        - INAFECTO
+        - EXPORTACION
+        - ICBPER
+        - GRATUITAS
+        - IGV
+        - MONTO_CARGO_X_ASIG
+        - CARGO_X_ASIGNACION
+        - ISC
+        - OTROS
+  resumen_boleta_ndc:
+    type: object
+    x-tags:
+      - Modelos
+    properties:
+      token_cliente:
+        type: string
+      ruc_proveedor:
+        type: string
+      secret_data:
+        $ref: '#/definitions/secret_data'
+      emisor:
+        $ref: '#/definitions/emisor'
+      codigo:
+        type: string
+      serie:
+        type: string
+      secuencia:
+        type: number
+        format: integer
+      fecha_referencia:
+        type: string
+        format: date
+      fecha_documento:
+        type: string
+        format: date
+      detalle:
+        $ref: '#/definitions/detalle_boleta_ndc'
+    required:
+      - token_cliente
+      - ruc_proveedor
+      - secret_data
+      - emisor
+      - codigo
+      - serie
+      - secuencia
+      - fecha_referencia
+      - fecha_documento
+      - detalle
+  cdr_recover:
+    type: object
+    properties:
+      token_cliente:
+        type: string
+      ruc_proveedor:
+        type: string
+      secret_data:
+        $ref: '#/definitions/secret_data'
+      emisor:
+        $ref: '#/definitions/emisor'
+      documento:
+        $ref: '#/definitions/documento_cdr'
+    x-tags:
+      - Modelos
+  documento_cdr:
+    type: object
+    properties:
+      tipo_comprobate:
+        type: string
+      serie_comprobante:
+        type: string
+      numero_comprobante:
+        type: string
+    required:
+      - tipo_comprobante
+      - serie_comprobante
+      - numero_comprobante
+    x-tags:
+      - Modelos
+  receptor_cpe:
+    type: object
+    properties:
+      ruc:
+        type: string
+        description: RUC del contribuyente (tu cliente)
+      tipo_doc:
+        type: string
+        example: '6'
+        description: 'No cambiar (6 -> RUC)'
+    required:
+      - ruc
+      - tipo_doc
+    x-tags:
+      - Modelos
+  cpe_recover:
+    type: object
+    properties:
+      token_cliente:
+        type: string
+      ruc_proveedor:
+        type: string
+      secret_data:
+        $ref: '#/definitions/secret_data'
+      receptor:
+        $ref: '#/definitions/receptor_cpe'
+      ruc_emisor:
+        type: string
+      serie:
+        type: string
+      correlativo:
+        type: string
+      sol_ruc:
+        type: string
+      sol_user:
+        type: string
+      sol_password:
+        type: string
+    x-tags:
+      - Modelos
   nota_debito:
     type: object
     properties:
@@ -511,6 +800,9 @@ definitions:
       - nro_documento_modifica
       - cod_tipo_motivo
       - descripcion_motivo
+    x-tags:
+      - Modelos
+    description: ''
   nota_credito:
     type: object
     properties:
@@ -647,6 +939,8 @@ definitions:
       - nro_documento_modifica
       - cod_tipo_motivo
       - descripcion_motivo
+    x-tags:
+      - Modelos
   guia_remision:
     type: object
     properties:
