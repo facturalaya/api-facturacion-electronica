@@ -1,0 +1,947 @@
+swagger: '2.0'
+info:
+  description: Documentación para el API de facturación electrónica de FacturalaYa.
+  version: 1.0.0
+  title: FacturalaYA API
+  contact:
+    email: info@facturalaya.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: endpoints
+    description: Endpoints para consumir nuestra API
+paths:
+  /facturalaya/boleta:
+    post:
+      tags:
+        - endpoints
+      operationId: generarBoleta
+      summary: Crear una boleta
+      description: Crear una boleta
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          schema:
+            $ref: '#/definitions/data'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
+  /facturalaya/factura:
+    post:
+      tags:
+        - endpoints
+      summary: Crear una factura
+      description: Crear una factura
+      operationId: crearFactura
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          schema:
+            $ref: '#/definitions/data'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
+  '/apisunarp/index/{token_cliente}/{placa}':
+    get:
+      tags:
+        - endpoints
+      summary: Consultar Placa Sunarp
+      description: Consultar placa Sunarp
+      operationId: consultarPlacaSunarp
+      parameters:
+        - in: path
+          name: token_cliente
+          type: string
+          required: true
+        - in: path
+          name: placa
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
+  '/apipersona/busqueda_avanzada/{token_cliente}/{num_doc}':
+    get:
+      tags:
+        - endpoints
+      summary: Consultar DNI completo
+      description: Consultar DNI completo
+      operationId: consultarDNI
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: token_cliente
+          required: true
+          type: string
+          description: Token para consultas
+        - in: path
+          name: num_doc
+          type: string
+          required: true
+          description: DNI a consultar
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              nombres:
+                  type: string
+              ap_paterno:
+                type: string
+              ap_materno:
+                type: string
+              nombre:
+                type: string
+              dni:
+                type: string
+              api:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    dni:
+                      type: string
+                    ApellidoPaterno:
+                      type: string
+                    Nombres:
+                      type: string
+                    FechaNacimiento:
+                      type: string
+                    Sexo:
+                      type: string
+                    ApellidoMaterno:
+                      type: string
+              sexo:
+                type: string
+              respuesta:
+                type: string
+  /facturalaya/consulta_ticket:
+    post:
+      tags:
+        - endpoints
+      summary: Consultar un ticket
+      description: Consultar un ticket
+      operationId: consultarTicket
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          schema:
+            $ref: '#/definitions/ticket'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
+  /facturalaya/asignar_pse_facturalaya:
+    post:
+      tags:
+        - endpoints
+      summary: Crear un PSE
+      operationId: asignarPSE
+      description: Dar de alta PSE
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          schema:
+            $ref: '#/definitions/data_pse'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
+  /facturalaya/comunicacion_baja:
+    post:
+      tags:
+        - endpoints
+      summary: Dar de baja CPE
+      operationId: bajaCPE
+      description: Dar de baja un CPE
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          schema:
+            $ref: '#/definitions/data_cpe'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
+
+  /facturalaya/guia_remision:
+    post:
+      tags:
+        - endpoints
+      summary: Generar guía de remisión
+      description: Generar guía de remisión
+      operationId: guiaRemision
+      produces:
+        - application/json
+      consumes: 
+        - application/json
+      parameters: 
+        - in: body
+          name: data
+          required: true
+          schema:
+            $ref: '#/definitions/guia_remision'      
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
+
+  /facturalaya/enviar_email_documento:
+    post:
+      tags: 
+          - endpoints
+      summary: Enviar comprobante por email
+      description: Enviar comprobante por email
+      operationId: enviarEmail
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          required: true
+          schema:
+            $ref: '#/definitions/email'      
+          
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
+
+                                     
+definitions:
+  guia_remision:
+    type: object
+    properties:
+      token_cliente:
+        type: string
+      ruc_proveedor:
+        type: string
+      secret_data:
+        $ref: '#/definitions/secret_data'      
+      emisor:
+        $ref: '#/definitions/emisor' 
+      cliente:
+        $ref: '#/definitions/cliente'       
+      detalle:
+        $ref: '#/definitions/detalle_guia'     
+      id_motivotraslado:
+        type: string
+      motivo_traslado:
+        type: string
+      peso:
+        type: number
+        format: float
+      numero_paquetes:
+        type: number
+        format: integer      
+      id_codigopuerto:
+        type: string
+      numero_contenedor:
+        type: string
+      id_modalidadtraslado:
+        type: string
+      fecha_traslado:
+        type: string
+        format: date
+      id_tipo_documento_transporte:
+        type: string
+        enum: ["1","6"]
+      nro_documento_transporte:
+        type: string
+      razon_social_transporte:
+        type: string
+      transporte_nro_placa:
+        type: string
+      dir_destino:
+        type: string
+      id_ubigeo_partida:
+        type: string
+      dir_partida:
+        type: string
+      nota:
+        type: string
+      docs_referencia:
+        $ref: '#/definitions/docs_referencia'     
+      serie_comprobante:
+        type: string
+      numero_comprobante:
+        type: string
+      fecha_comprobante:
+        type: string
+        format: date
+      cod_tipo_documento:
+        type: string
+    required:
+      - token_cliente
+      - ruc_proveedor
+      - secret_data
+      - emisor
+      - cliente
+      - detalle
+      - id_motivotraslado
+      - motivo_traslado
+      - peso
+      - numero_paquetes      
+      - id_modalidadtraslado
+      - fecha_traslado
+      - id_tipo_documento_transporte
+      - nro_documento_transporte
+      - razon_social_transporte
+      - id_ubigeo_destino
+      - dir_destino
+      - id_ubigeo_partida
+      - nota
+      - serie_comprobante
+      - numero_comprobante
+      - fecha_comprobante
+      - cod_tipo_documento
+
+
+        
+      
+  detalle_guia:
+    type: array
+    items:
+      type: object
+      properties:
+        ITEM_DET:
+          type: string
+        UNIDAD_MEDIDA_DET:
+          type: string
+        CANTIDAD_DET:
+          type: number
+          format: float
+        CODIGO_PRODUCTO:
+          type: string
+        DESCRIPCION_DET:
+          type: string
+        PESO_DET:
+          type: number
+          format: float
+      required:
+        - ITEM_DET
+        - UNIDAD_MEDIDA_DET
+        - CANTIDAD_DET
+        - CODIGO_PRODUCTO
+        - DESCRIPCION_DET
+
+
+
+  email:
+    type: object
+    properties:
+      token_cliente:
+        type: string      
+      ruc_proveedor:
+        type: string
+      emisor:
+        type: string
+      emisor_idcontribuyente:
+        type: string
+      emisor_email:
+        type: string
+      emisor_razon_social:
+        type: string
+      emisor_num_doc:
+        type: string
+        description: RUC de la empresa
+      cliente_email:
+        type: string
+      cliente_razon_social:
+        type: string
+      documento_nombre:
+        type: string
+      documento_serie_numero:
+        type: string
+      documento_fecha:
+        type: string
+      documento_total:
+        type: number
+        format: float
+      documento_moneda:
+        type: string
+        enum: [USD,PEN]
+      documento_pdf_a4:
+        type: string
+      documento_pdf_ticket:
+        type: string
+      documento_xml: 
+        type: string
+      accion:
+        type: string
+    required:
+      - token_cliente       
+      - ruc_proveedor
+      - asunto
+      - emisor_email
+      - emisor_razon_social
+      - emisor_num_doc
+      - cliente_email
+      - cliente_razon_social
+      - documento_nombre
+      - documento_serie_numero
+      - documento_fecha
+      - documento_total
+      - documento_moneda
+      - documento_pdf_a4 
+      - documento_pdf_ticket
+      - documento_xml
+      - accion
+
+
+      
+      
+
+  cliente:
+    type: object
+    properties:
+      cliente_tipodocumento:
+        type: string
+        description: Código del tipo de documento
+      cliente_numerodocumento:
+        type: string
+        description: 'Si es RUC -> 11 dígitos, si es DNI -> 8 digitos, si es OTRO DOC -> 8 ceros o un guión'
+      cliente_nombre:
+        type: string
+        description: Razón social de empresa o nombre del cliente
+      cliente_direccion:
+        type: string
+        description: Obligatorio solo con RUC
+      cliente_pais:
+        type: string
+      cliente_ciudad:
+        type: string
+      cliente_codigoubigeo:
+        type: string
+        description: Obligatorio solo con RUC
+      cliente_departament:
+        type: string
+      cliente_provincia:
+        type: string
+      cliente_distrito:
+        type: string
+    required:
+      - cliente_tipodocumento
+      - cliente_numerodocumento
+      - cliente_nombre
+      - cliente_pais
+  docs_referencia:
+    type: array
+    items:
+      type: object
+      properties:
+        id_tipodoc_electronico:
+          type: string
+        serie_comprobante:
+          type: string
+        numero_comprobante:
+          type: string
+      required:
+        - id_tipodoc_electronico
+        - serie_comprobante
+        - numero_comprobante
+  detalle:
+    type: array
+    items:
+      type: object
+      properties:
+        ITEM_DET:
+          type: string
+          description: 'Correlativo, empezando en 1 para el primer Item'
+        UNIDAD_MEDIDA_DET:
+          type: string
+        PRECIO_TIPO_CODIGO:
+          type: string
+        COD_TIPO_OPERACION_DET:
+          type: string
+        CANTIDAD_DET:
+          type: number
+          format: float
+          description: Cantidad vendida
+        PRECIO_DET:
+          type: number
+          format: float
+          description: Valor del Producto. Mayor a Cero y hasta 10 decimales
+        IGV_DET:
+          type: number
+          format: float
+          description: 'valor IGV. Hasta 2 decimales, debe ser mayora cero para operaciones gravadas'
+        ICBPER_DET:
+          type: number
+          format: float
+          description: Impuesto ICBPER
+        ISC_DET:
+          type: number
+          format: float
+          description: Impuesto Selectivo al Consumo
+        PRECIO_SIN_IGV_DET:
+          type: number
+          format: float
+          description: Valor del producto sin IGV
+        IMPORTE_DET:
+          type: number
+          format: float
+          description: Importe sin IGV (cantidad x precio_sin_igv_det)
+        CODIGO_DET:
+          type: string
+          description: 'Código interno del producto, entre 1 y 30 caracteres'
+        DESCRIPCION_DET:
+          type: string
+          description: Nombre del producto hasta 300 caracteres
+        DESCUENTO_ITEM:
+          type: string
+          enum:
+            - si
+            - 'no'
+          description: 'Si tiene descuento por item debe indicar "si", y deben llenarse los demás campos'
+        PORCENTAJE_DESCUENTO:
+          type: number
+          format: float
+          description: 'Porcentaje, ejem. 10 (para 10%), 20 (para 20%) (si es CERO se condisera que no existe descuento por ITEM) (máximo dos decimiales)'
+        MONTO_DESCUENTO:
+          type: number
+          format: float
+          description: Máximo dos decimales
+        CODIGO_DESCUENTO:
+          type: string
+          description: Código de descuento según tabla N° 53 (normalmente es 00)
+      required:
+        - ITEM_DET
+        - UNIDAD_MEDIDA_DET
+        - PRECIO_TIPO_CODIGO
+        - COD_TIPO_OPERACION_DET
+        - CANTIDAD_DET
+        - PRECIO_DET
+        - IGV_DET
+        - ICBPER_DET
+        - ISC_DET
+        - PRECIO_SIN_IGV_DET
+        - IMPORTE_DET
+        - CODIGO_DET
+        - DESCRIPCION_DET
+        - DESCUENTO_ITEM
+        - PORCENTAJE_DESCUENTO
+        - MONTO_DESCUENTO
+        - CODIGO_DESCUENTO
+  data:
+    type: object
+    properties:
+      token_cliente:
+        type: string
+      ruc_proveedor:
+        type: string
+      secret_data:
+        $ref: '#/definitions/secret_data'
+      emisor:
+        $ref: '#/definitions/emisor'
+      cliente:
+        $ref: '#/definitions/cliente'
+      detalle:
+        $ref: '#/definitions/detalle'
+      docs_referencia:
+        $ref: '#/definitions/docs_referencia'
+      tipo_operacion:
+        type: string
+      total_gravadas:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_inafecta:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_exoneradas:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_gratuitas:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_exportacion:
+        type: number
+        format: float
+        description: Igual o mayor a cero
+      total_isc:
+        type: number
+        format: float
+        description: Por defecto es 0
+      total_icbper:
+        type: number
+        format: float
+        description: Por defecto es 0
+      total_otr_imp:
+        type: number
+        format: float
+        description: Por defecto es 0
+      total_descuento:
+        type: number
+        format: float
+      impuesto_icbper:
+        type: number
+        format: float
+        description: 'El impuesto del icbper de acuerdo al año (2019 -> S/. 0.10, 2020 -> S/. 0.2, 2021 -> S/. 0.3)'
+      porcentaje_igv:
+        type: number
+        format: float
+        description: Porcentaje del IGV
+      total_igv:
+        type: number
+        format: float
+        description: El monto total de IGV
+      sub_total:
+        type: number
+        format: float
+        description: Total sin IGV
+      total:
+        type: number
+        format: float
+        description: El total del documento
+      total_letras:
+        type: string
+      nro_otr_comprobante:
+        type: string
+      transporte_nro_placa:
+        type: string
+      cod_moneda:
+        type: string
+      cod_sucursal_sunat:
+        type: string
+        description: 'Aquí se debe ubicar el código de la sucursal declarada en sunat, en caso de que no tengas ninguna sucursal entonces se debe colocar "0000"'
+      fecha_comprobante:
+        type: string
+        format: date
+        description: Formato Y-m-d
+      fecha_vto_comprobante:
+        type: string
+        format: date
+        description: Formato Y-m-d
+      cod_tipo_documento:
+        type: string
+      serie_comprobante:
+        type: string
+      numero_comprobante:
+        type: integer
+    required:
+      - token_cliente
+      - ruc_proveedor
+      - secret_data
+      - emisor
+      - cliente
+      - detalle
+      - tipo_operacion
+      - total_gravadas
+      - total_inafecta
+      - total_exoneradas
+      - total_gratuitas
+      - total_exportacion
+      - total_isc
+      - total_icbper
+      - total_otr_imp
+      - total_descuento
+      - impuesto_icbper
+      - porcentaje_igv
+      - total_igv
+      - sub_total
+      - total
+      - cod_moneda
+      - cod_sucursal_sunat
+      - fecha_comprobante
+      - fecha_vto_comprobante
+      - cod_tipo_documento
+      - serie_comprobante
+      - numero_comprobante
+  data_pse:
+    required:
+      - token_cliente
+      - ruc_proveedor
+      - secret_data
+      - ruc_cliente
+      - usuario_sol_cliente
+      - password_sol_cliente
+    type: object
+    properties:
+      token_cliente:
+        type: string
+      ruc_proveedor:
+        type: string
+      secret_data:
+        $ref: '#/definitions/secret_data'
+      ruc_cliente:
+        type: string
+      usuario_sol_cliente:
+        type: string
+      password_sol_cliente:
+        type: string
+  data_cpe:
+    required:
+      - token_cliente
+      - ruc_proveedor
+      - secret_data
+      - emisor
+      - cabecera
+      - detalle
+    properties:
+      token_cliente:
+        type: string
+      ruc_proveedor:
+        type: string
+      secret_data:
+        $ref: '#/definitions/secret_data'
+      emisor:
+        $ref: '#/definitions/emisor'
+      cabecera:
+        $ref: '#/definitions/cabecera_cpe'
+      detalle:
+        $ref: '#/definitions/detalle_cpe'
+  cabecera_cpe:
+    required:
+      - codigo
+      - serie
+      - secuencia
+      - fecha_referencia
+      - fecha_baja
+    properties:
+      codigo:
+        type: string
+        example: RA
+      serie:
+        type: string
+        description: 'La serie se genera con el AÑO, MES, DÍA, todo junto sin espacios'
+      secuencia:
+        type: number
+        format: integer
+        description: La secuencia es diaria
+      fecha_referencia:
+        type: string
+        format: date
+      fecha_baja:
+        type: string
+        format: date
+  detalle_cpe:
+    type: array
+    items:
+      type: object
+      properties:
+        ITEM_DET:
+          type: number
+          format: integer
+        TIPO_COMPROBANTE:
+          type: string
+        SERIE:
+          type: string
+        NUMERO:
+          type: number
+          format: integer
+        MOTIVO:
+          type: string
+          description: 'Aquí el motivo de la comunicación de baja, puede ser -> Error en el RUC, Error en la generación del comprobante, etc.'
+      required:
+        - ITEM_DET
+        - TIPO_COMPROBANTE
+        - SERIE
+        - NUMERO
+        - MOTIVO
+  emisor:
+    properties:
+      ruc:
+        type: string
+        description: 'RUC del contribuyente, de tu cliente'
+      tipo_doc:
+        type: string
+        example: '6'
+        description: 'No cambiar (6-> RUC)'
+      email:
+        type: string
+      nom_comercial:
+        type: string
+      razon_social:
+        type: string
+      codigo_ubigeo:
+        type: string
+      direccion:
+        type: string
+      modalidad_envio_sunat:
+        type: string
+        example: inmediato
+        description: No cambiar
+      direccion_departamento:
+        type: string
+        description: Del Ubigeo
+      direccion_provincia:
+        type: string
+        description: Del Ubigeo
+      direccion_distrito:
+        type: string
+        description: Del Ubigeo
+      direccion_codigopais:
+        type: string
+        example: PE
+        description: No cambiar
+    required:
+      - ruc
+      - tipo_doc
+      - email
+      - nom_comercial
+      - razon_social
+      - codigo_ubigeo
+      - direccion
+      - modalidad_envio_sunat
+      - direccion_departamento
+      - direccion_provincia
+      - direccion_distrito
+      - direccion_codigopais
+  secret_data:
+    properties:
+      tipo_certificado:
+        type: string
+        example: pse_facturalaya
+        description: No cambiar
+      tipo_proceso:
+        type: string
+        description: Cambiar para selecionar prueba o producción
+        enum:
+          - prueba
+          - produccion
+    required:
+      - tipo_certificado
+      - tipo_proceso
+  ticket:
+    properties:
+      token_cliente:
+        type: string
+        description: Token para consultas
+      ruc_proveedor:
+        type: string
+      secret_data:
+        $ref: '#/definitions/secret_data'
+      emisor:
+        $ref: '#/definitions/emisor'
+      cod_ticket:
+        type: string
+        description: Número del ticket
+      codigo:
+        type: string
+        enum:
+          - RC
+          - RA
+        description: Si fuese ticket de una comunicación de baja seria RA
+      serie:
+        type: string
+        description: Fecha con el formato Ymd
+schemes:
+  - https
+host: facturalahoy.com
+basePath: /api
+produces:
+  - application/json
+consumes:
+  - application/json
