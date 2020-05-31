@@ -36,6 +36,43 @@ paths:
             properties:
               respuesta:
                 type: string
+              name_file_xml_cpe:
+                type: string
+              name_file_zip_cpe:
+                type: string
+              ruta_cpe_zip:
+                type: string
+              file_cpe_zip:
+                type: string
+              hash_cpe:
+                type: string
+              cod_sunat:        
+                type: string
+              hash_cdr:
+                type: string
+              msj_sunat:
+                type: string
+              name_file_xml_cdr:
+                type: string
+              name_file_zip_cdr:
+                type: string
+              ruta_cdr_zip:
+                type: string
+              file_cdr_zip:
+                type: string
+              ruta_xml:
+                type: string
+              ruta_cdr:
+                type: string
+              ruta_pdf:
+                type: string
+        '400':
+          description: Error
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
               codigo:
                 type: string
               titulo:
@@ -61,6 +98,19 @@ paths:
       responses:
         '200':
           description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
+        '400':
+          description: Error
           schema:
             type: object
             properties:
@@ -150,6 +200,18 @@ paths:
                 type: string
               respuesta:
                 type: string
+        '400':
+          description: Error
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              code:
+                type: string
+              mensaje:
+                type: string
+              
   '/persona/{num_doc}/{token_cliente}':
     get:
       tags:
@@ -239,6 +301,19 @@ paths:
                 type: string
               mensaje:
                 type: string
+        '400':
+          description: Error
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              codigo:
+                type: string
+              titulo:
+                type: string
+              mensaje:
+                type: string
   /facturalaya/asignar_pse_facturalaya:
     post:
       tags:
@@ -269,6 +344,19 @@ paths:
                 type: string
               mensaje:
                 type: string
+        '400':
+          description: Error
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              titulo:
+                type: string
+              cod_error:
+                type: string
+              mensaje:
+                type: string
   /facturalaya/comunicacion_baja:
     post:
       tags:
@@ -296,6 +384,19 @@ paths:
               codigo:
                 type: string
               titulo:
+                type: string
+              mensaje:
+                type: string
+        '400':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              titulo:
+                type: string
+              cod_error:
                 type: string
               mensaje:
                 type: string
@@ -330,6 +431,19 @@ paths:
                 type: string
               mensaje:
                 type: string
+        '400':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              titulo:
+                type: string
+              cod_error:
+                type: string
+              mensaje:
+                type: string
   /facturalaya/enviar_email_documento:
     post:
       tags:
@@ -361,6 +475,19 @@ paths:
                 type: string
               mensaje:
                 type: string
+        '400':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              titulo:
+                type: string
+              cod_error:
+                type: string
+              mensaje:
+                type: string
   /facturalaya/nota_credito:
     post:
       tags:
@@ -386,9 +513,46 @@ paths:
             properties:
               respuesta:
                 type: string
-              codigo:
+              name_file_xml_cpe:
+                type: string
+              name_file_zip_cpe:
+                type: string
+              ruta_cpe_zip:
+                type: string
+              file_cpe_zip:
+                type: string
+              hash_cpe:
+                type: string
+              cod_sunat:        
+                type: string
+              hash_cdr:
+                type: string
+              msj_sunat:
+                type: string
+              name_file_xml_cdr:
+                type: string
+              name_file_zip_cdr:
+                type: string
+              ruta_cdr_zip:
+                type: string
+              file_cdr_zip:
+                type: string
+              ruta_xml:
+                type: string
+              ruta_cdr:
+                type: string
+              ruta_pdf:
+                type: string
+        '400':
+          description: Error
+          schema:
+            type: object
+            properties:
+              respuesta:
                 type: string
               titulo:
+                type: string
+              cod_error:
                 type: string
               mensaje:
                 type: string
@@ -423,6 +587,19 @@ paths:
                 type: string
               mensaje:
                 type: string
+        '400':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              titulo:
+                type: string
+              cod_error:
+                type: string
+              mensaje:
+                type: string
   /facturalaya/recuperar_cpe:
     post:
       tags:
@@ -451,6 +628,19 @@ paths:
               codigo:
                 type: string
               titulo:
+                type: string
+              mensaje:
+                type: string
+        '400':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              titulo:
+                type: string
+              cod_error:
                 type: string
               mensaje:
                 type: string
@@ -485,6 +675,19 @@ paths:
                 type: string
               mensaje:
                 type: string
+        '400':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              titulo:
+                type: string
+              cod_error:
+                type: string
+              mensaje:
+                type: string
   /facturalaya/resumen_boletas:
     post:
       tags:
@@ -513,6 +716,19 @@ paths:
               codigo:
                 type: string
               titulo:
+                type: string
+              mensaje:
+                type: string
+        '400':
+          description: Ok
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+              titulo:
+                type: string
+              cod_error:
                 type: string
               mensaje:
                 type: string
