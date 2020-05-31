@@ -92,16 +92,7 @@ paths:
         '200':
           description: Ok
           schema:
-            type: object
-            properties:
-              respuesta:
-                type: string
-              codigo:
-                type: string
-              titulo:
-                type: string
-              mensaje:
-                type: string
+            $ref: '#/definitions/respuesta_sunarp'
   '/apipersona/busqueda_avanzada/{token_cliente}/{num_doc}':
     get:
       tags:
@@ -164,7 +155,7 @@ paths:
       tags:
         - endpoints
       summary: Consultar DNI
-      description: Consultar DNI
+      description: Consultar DN
       operationId: consultarDNI
       produces:
         - application/json
@@ -183,39 +174,8 @@ paths:
         '200':
           description: Ok
           schema:
-            type: object
-            properties:
-              nombres:
-                type: string
-              ap_paterno:
-                type: string
-              ap_materno:
-                type: string
-              nombre:
-                type: string
-              dni:
-                type: string
-              api:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    dni:
-                      type: string
-                    ApellidoPaterno:
-                      type: string
-                    Nombres:
-                      type: string
-                    FechaNacimiento:
-                      type: string
-                    Sexo:
-                      type: string
-                    ApellidoMaterno:
-                      type: string
-              sexo:
-                type: string
-              respuesta:
-                type: string
+            $ref: '#/definitions/respuesta_dni'
+            
   '/empresa/{num_doc}/{password}':
     get:
       tags:
@@ -1647,10 +1607,153 @@ definitions:
       - tipo_proceso
     x-tags:
       - Modelos
+  respuesta_dni:    
+    properties:
+      nombres:
+        type: string
+      ap_paterno:
+        type: string
+      ap_materno:
+        type: string
+      nombre:
+        type: string
+      dni:
+        type: string
+      api:
+        $ref: '#/definitions/api'
+      respuesta:
+        type: string
+
+  api:
+    properties:
+      success:
+        type: boolean
+      result:
+        $ref: '#/definitions/result'
+      images:
+        $ref: '#/definitions/images'
+
+  result:
+    properties:
+      nuDni:
+        type: string
+      apePaterno:
+        type: string
+      apeMaterno:
+        type: string
+      preNombres:
+        type: string
+      inCel:
+        type: string
+      digitoVerificacion:
+        type: string
+      tipoFicha:
+        type: string
+      tipoFichaImag:
+        type: string
+      coRestriccion:
+        type: string
+      grRestriccion:
+        type: string 
+      deCel:
+        type: string
+      nuDatos:
+        type: string
+      nuImagen:
+        type: string
+      feNacimiento:
+        type: string  
+      nuEdad:
+        type: string
+      nuDocPadre:
+        type: string
+      coTipoDocPadre:
+        type: string
+      nuDocMadre:
+        type: string
+      coTipoDocMadre:
+        type: string
+      nuDocDeclarante:
+        type: string
+      coTipoDeclarante:
+        type: string
+      deGenero:
+        type: string
+      estatura:
+        type: string
+      sexo:
+        type: string
+      estadoCivil:
+        type: string
+      gradoInstruccion:
+        type: string
+      feEmision:
+        type: string
+      feInscripcion:
+        type: string
+      nomPadre:
+        type: string
+      nomMadre:
+        type: string
+      cancelacion:
+        type: string
+      departamento:
+        type: string
+      provincia:
+        type: string
+      distrito:
+        type: string
+      depaDireccion:
+        type: string
+      provDireccion:
+        type: string
+      distDireccion:
+        type: string
+      feFallecimiento:
+        type: string
+      depaFallecimiento:
+        type: string
+      provFallecimiento:
+        type: string
+      distFallecimiento:
+        type: string
+      feCaducidad:
+        type: string
+      donaOrganosglosaInfo:
+        type: string
+      observacion:
+        type: string
+      vinculoDeclarante:
+        type: string
+      nomDeclarante:
+        type: string
+      deRestriccion:
+        type: string
+      coDocEmi:
+        type: string
+      desDireccion:
+        type: string
+      coTipoDoc:
+        type: string
+      apCasada:
+        type: string
+      inGrupoRestri:
+        type: string
+
+  images:
+    type: object
+    properties:
+      foto:
+        type: string
+      firma: 
+        type: string
+      hizquierda:
+        type: string
+      hderecha:
+        type: string
   ticket:
     x-tags:
       - Modelos
-    description: ''
     type: object
     properties:
       token_cliente:
@@ -1682,6 +1785,87 @@ definitions:
       - cod_ticket
       - codigo
       - serie
+
+
+  respuesta_sunarp:
+    type: object
+    properties:
+      api:
+        $ref: '#/definitions/api_sunarp'
+  api_sunarp:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+      result:
+        $ref: '#/definitions/result_sunarp'
+  result_sunarp:
+    type: array
+    items:
+      type: object
+      properties:
+        Propietario:
+          type: string
+        Descripcion:
+          type: string
+        Placa:
+          type: string
+        Documento:
+          type: string
+        Tarjeta:
+          type: string
+        Fecha:
+          type: string
+        Serie:
+          type: string
+        Direccion:
+          type: string
+        Marca:
+          type: string
+        TituloAnio:
+          type: string
+        TituloNro:
+          type: string
+        TipoPropietario:
+          type: string
+        Modelo:
+          type: string
+        Combustible:
+          type: string
+        Carroceria:
+          type: string
+        Motor:
+          type: string
+        Anio:
+          type: string
+        Clase:
+          type: string
+        Color:
+          type: string
+        Cilindros:
+          type: string
+        Asientos:
+          type: string
+        Pasajeros:
+          type: string
+        Puertas:
+          type: string
+        Ruedas:
+          type: string
+        Longitud:
+          type: string
+        Ancho:
+          type: string
+        Altura:
+          type: string
+        PesoBruto:
+          type: string
+        Estado:
+          type: string
+        
+          
 schemes:
   - https
 host: facturalahoy.com
