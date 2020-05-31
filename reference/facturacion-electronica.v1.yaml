@@ -1837,6 +1837,8 @@ definitions:
         $ref: '#/definitions/api'
       respuesta:
         type: string
+    x-tags:
+      - Modelos
   api:
     properties:
       success:
