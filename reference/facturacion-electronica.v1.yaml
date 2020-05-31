@@ -46,7 +46,7 @@ paths:
                 type: string
               hash_cpe:
                 type: string
-              cod_sunat:        
+              cod_sunat:
                 type: string
               hash_cdr:
                 type: string
@@ -211,7 +211,6 @@ paths:
                 type: string
               mensaje:
                 type: string
-              
   '/persona/{num_doc}/{token_cliente}':
     get:
       tags:
@@ -237,7 +236,6 @@ paths:
           description: Ok
           schema:
             $ref: '#/definitions/respuesta_dni'
-            
   '/empresa/{num_doc}/{password}':
     get:
       tags:
@@ -523,7 +521,7 @@ paths:
                 type: string
               hash_cpe:
                 type: string
-              cod_sunat:        
+              cod_sunat:
                 type: string
               hash_cdr:
                 type: string
@@ -1823,7 +1821,7 @@ definitions:
       - tipo_proceso
     x-tags:
       - Modelos
-  respuesta_dni:    
+  respuesta_dni:
     properties:
       nombres:
         type: string
@@ -1839,7 +1837,6 @@ definitions:
         $ref: '#/definitions/api'
       respuesta:
         type: string
-
   api:
     properties:
       success:
@@ -1848,7 +1845,8 @@ definitions:
         $ref: '#/definitions/result'
       images:
         $ref: '#/definitions/images'
-
+    x-tags:
+      - Modelos
   result:
     properties:
       nuDni:
@@ -1870,7 +1868,7 @@ definitions:
       coRestriccion:
         type: string
       grRestriccion:
-        type: string 
+        type: string
       deCel:
         type: string
       nuDatos:
@@ -1878,7 +1876,7 @@ definitions:
       nuImagen:
         type: string
       feNacimiento:
-        type: string  
+        type: string
       nuEdad:
         type: string
       nuDocPadre:
@@ -1955,18 +1953,21 @@ definitions:
         type: string
       inGrupoRestri:
         type: string
-
+    x-tags:
+      - Modelos
   images:
     type: object
     properties:
       foto:
         type: string
-      firma: 
+      firma:
         type: string
       hizquierda:
         type: string
       hderecha:
         type: string
+    x-tags:
+      - Modelos
   ticket:
     x-tags:
       - Modelos
@@ -2001,13 +2002,13 @@ definitions:
       - cod_ticket
       - codigo
       - serie
-
-
   respuesta_sunarp:
     type: object
     properties:
       api:
         $ref: '#/definitions/api_sunarp'
+    x-tags:
+      - Modelos
   api_sunarp:
     type: object
     properties:
@@ -2017,6 +2018,8 @@ definitions:
         type: string
       result:
         $ref: '#/definitions/result_sunarp'
+    x-tags:
+      - Modelos
   result_sunarp:
     type: array
     items:
@@ -2080,8 +2083,8 @@ definitions:
           type: string
         Estado:
           type: string
-        
-          
+    x-tags:
+      - Modelos
 schemes:
   - https
 host: facturalahoy.com
