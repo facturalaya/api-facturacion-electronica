@@ -316,7 +316,7 @@ paths:
     post:
       tags:
         - endpoints
-      summary: Crear un PSE
+      summary: Asignar un PSE
       operationId: asignarPSE
       description: Dar de alta PSE
       consumes:
